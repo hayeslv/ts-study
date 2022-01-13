@@ -6,7 +6,12 @@
     "jsRules": {},
     "rules": {
         "no-console": false,
-        "semicolon": true
+        "semicolon": true,
+        "member-access": true,
+        "max-classes-per-file": false,
+        "no-empty": false,
+        "no-empty-interface": false
+        
     },
     "rulesDirectory": []
 }
