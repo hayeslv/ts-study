@@ -41,6 +41,7 @@ interface Vegetable1 {
 let vegetableObj: Vegetable1 = {
   type: 'tomato'
 };
+// @ts-ignore
 vegetableObj.type = 'carrot'; // Error
 
 // 我们还可以限定一个数组的元素只能读取，不能修改
@@ -49,6 +50,7 @@ interface ArrInter {
   readonly 1: string;
 }
 let arr5: ArrInter = [1, 'a'];
+// @ts-ignore
 arr5[1] = 'b'; // Error
 
 
@@ -61,6 +63,7 @@ interface RoleDic {
   [id: number]: string;
 }
 const role1: RoleDic = {
+  // @ts-ignore
   'a': 'super_admin' // Error
 };
 
