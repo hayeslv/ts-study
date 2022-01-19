@@ -77,10 +77,90 @@ interface Info1 {
 type ReadonlyType<T> = {
   readonly [P in keyof T]: T[P] // 可选属性：[P in keyof T]?: T[P]
 };
+type SelectType<T> = {
+  [P in keyof T]?: T[P] // 可选属性：[P in keyof T]?: T[P]
+};
 type ReadonlyInfo1 = ReadonlyType<Info1>;
+type SelectInfo1 = SelectType<Info1>;
 
 // ts内置了这两种方法（把所有属性变成只读的、把所有属性变成可选的）
-type ReadonlyInfo2 = ReadonlyType<Info1>;
 type ReadonlyInfo3 = Partial<Info1>;
+type ReadonlyInfo4 = Readonly<Info1>;
+
+// !Pick：原来对象上的一部分属性名，组成的类名
+interface Info2 {
+  name: string;
+  age: number;
+  address: string;
+}
+const info3: Info2 = {
+  name: 'dylan',
+  age: 18,
+  address: '广东'
+};
+// Pick<T, K>：原来对象上的一部分属性名，组成的类名
+function pick<T, K extends keyof T>(obj: T, keys: K[]): Pick<T, K> {
+  const res: any = {};
+  keys.map(key => {
+    res[key] = obj[key];
+  });
+  return res;
+}
+const nameAndAddress = pick(info3, ['name', 'address']);
+
+// !Record：将对象中的每一个属性转换为其他值
+function mapObject<K extends string | number, T, U>(obj: Record<K, T>, f: (x: T) => U): Record<K, U> {
+  const res: any = {};
+  for(const key in obj) {
+    res[key] = f(obj[key]);
+  }
+  return res;
+}
+const names = { 0: 'hello', 1: 'world', 2: 'bye' };
+const lengths = mapObject(names, s => s.length);
+console.log(lengths);
+
+// !拆包
+type Proxy<T> = {
+  get(): T;
+  set(value: T): void;
+};
+type Proxify<T> = {
+  [P in keyof T]: Proxy<T[P]>
+};
+function proxify<T>(obj: T): Proxify<T> {
+  const result = {} as Proxify<T>;
+  for(const key in obj) {
+    result[key] = {
+      get: () => obj[key],
+      set: (value) => obj[key] = value,
+    };
+  }
+  return result;
+}
+let props = {
+  name: 'dylan',
+  age: 18
+};
+let proxyProps = proxify(props);
+console.log(proxyProps); // { name: get set, age: get set }
+
+function unproxify<T>(t: Proxify<T>): T {
+  const result = {} as T;
+  for(const k in t) {
+    result[k] = t[k].get();
+  }
+  return result;
+}
+console.log(unproxify(proxyProps)); // {name: 'dylan', age: 18}
+
+// !增加或移除特定修饰符
+type RemoveReadonly<T> = {
+  -readonly [P in keyof T]-?: T[P]
+};
+type InfoWithoutReadonly = RemoveReadonly<ReadonlyInfo1>; // 去掉所有的 readonly 和可选
+// 51分
+
+
 
 
