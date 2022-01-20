@@ -15,7 +15,8 @@
         "no-shadowed-variable": false,
         "forin": false,
         "ban-types": false,
-        "array-type": false
+        "array-type": false,
+        "no-namespace": false
         
     },
     "rulesDirectory": []
