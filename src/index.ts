@@ -11,5 +11,6 @@
 // import './example/advanced-type-1';
 // import './example/advanced-type-2';
 // import './ts-modules/index';
-import './example/merging';
+// import './example/merging';
+import './example/decorators';
 
