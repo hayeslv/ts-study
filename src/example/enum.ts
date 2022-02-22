@@ -1,5 +1,6 @@
+
 enum Status {
-  Uploading,
+  Uploading = 3,
   Success,
   Failed,
 }
@@ -39,8 +40,9 @@ interface Dog {
   type: Animals.Dog;
 }
 const dog: Dog = {
-  type: Animals.Dog
+  type: 10
 };
+console.log(dog);
 
 // 联合枚举类型
 enum Status {
@@ -51,8 +53,9 @@ interface Light {
   status: Status;
 }
 const light: Light = {
-  status: Status.Off
+  status: Status.On
 };
+console.log(light);
 
 // 如果使用了const，则编译时不会再有 Animals1 这个对象了
 const enum Animals1 {

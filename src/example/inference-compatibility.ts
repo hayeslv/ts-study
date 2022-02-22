@@ -4,6 +4,7 @@ let name1 = 'dylan';
 let arr6 = [1, 'a']; // ts会推断数组类型是 (string | number)[]
 // arr6 = [1, 2, 3, 'a', true]; // Error：不能将类型“boolean”分配给类型“string | number”。
 
+
 // !类型兼容性
 interface InfoInterface {
   name: string;
@@ -60,6 +61,11 @@ enum StatusInterface {
 }
 let s = StatusInterface.On;
 s = 2; // OK：它是和数值类型兼容的
+enum Animal {
+  Dog,
+  Cat
+}
+// s = Animal.Dog
 
 // !类的兼容性：只比较实例的成员。类的静态成员和构造函数不进行比较
 class AnimalClass {

@@ -27,7 +27,7 @@ class Child extends Parent {
 
 // public 修饰符表示公共的
 // private 私有的：在类的外面不能访问，该类被继承也不能访问private属性和方法
-// protected 受保护：可以被自己和子类调用；子类调用时，只允许使用方法
+// protected 受保护：可以被自己和继承该类的子类调用；子类调用时，只允许使用方法
 // protected可以修饰constructor，此时不能用当前class生成实例，只能被继承
 
 // !readonly

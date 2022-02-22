@@ -9,7 +9,9 @@ getArray(8).map(item => item.length); // 数字没有length属性：[undefined, 
 const getArray1 = <T>(value: T, times: number = 5): T[] => {
   return new Array(times).fill(value);
 };
-// getArray1<number>(8).map(item => item.length); // Error：这样就会提示错误信息 “类型“number”上不存在属性“length”。”
+// getArray1<number>(8).map(item => item.length); // Error：类型“number”上不存在属性“length”。
+// getArray1<number>('abc'); // Error：类型“string”的参数不能赋给类型“number”的参数。
+getArray1<string>('abc').map(item => item.length); // [3, 3, 3, 3, 3]
 
 // 参数1是T类型，参数2是U类型，返回类型是元组类型 T,U组成的数组
 const getArray2 = <T, U>(param1: T, param2: U, times: number): [T, U][] => {

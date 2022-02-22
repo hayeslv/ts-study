@@ -85,7 +85,7 @@ function getSplicedStr(num: number | null): string {
 
 // !类型别名
 type TypeString = string;
-let string: TypeString;
+let str2: TypeString;
 // 使用类型别名时，属性可以是自己
 type Childs<T> = {
   current: T,

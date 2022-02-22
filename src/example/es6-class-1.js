@@ -78,7 +78,7 @@ const Infos3 = class {
 
 // !静态方法
 class PointStatic {
-  static z1 = 2; // 静态属性
+  // static z1 = 2; // 静态属性
   constructor(x, y) {
     this.x = x;
     this.y = y;
@@ -91,7 +91,10 @@ class PointStatic {
     return PointStatic.name;
   }
 }
-PointStatic.z = 2; // 静态属性
+// PointStatic.z = 2; // 静态属性
+const p = new Point(1, 2);
+console.log(p.getPosition()); // (1, 2)
+// console.log(p.getClassName()); // Error：p.getClassName is not a function
 console.log(PointStatic.getClassName()); // PointStatic
 
 

@@ -21,7 +21,7 @@ module.exports = {
   },
   devtool: process.env.NODE_ENV === "production" ? false : "inline-source-map",
   devServer: {
-    contentBase: "./dist",
+    contentBase: "./dist", // 基于哪个文件夹运行
     stats: "errors-only", // 只有当出现错误的时候，控制台才会打印
     compress: false, // 不启动压缩
     host: "localhost",

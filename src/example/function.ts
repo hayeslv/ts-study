@@ -25,6 +25,7 @@ addFunc = (a: number, b: number): number => a + b;
 
 // !函数的参数
 let addFunc1;
+addFunc1 = (arg1: number, arg2: number) => arg1 + arg2;
 addFunc1 = (a, b, c) => a + b + (c ? c : 0);
 // 可选参数
 type AddFunction = (a: number, b: number, c?: number) => number;

@@ -11,11 +11,10 @@ console.log(!s1);           // false
 // ! es6语法
 let prop = 'name';
 const info = {
-  // name: 'dylan'
-  [prop]: 'dylan',
+  [prop]: 'dylan', // 等同于 name: 'dylan'
   [`my${prop}is`]: 'dylan'
 };
-console.log(info);
+console.log(info); // {name: 'dylan', mynameis: 'dylan'}
 
 // ! symbol使用上面的语法
 const s2 = Symbol('name');
@@ -37,8 +36,8 @@ console.log(Object.getOwnPropertyNames(info2));
 console.log(JSON.stringify(info2));
 
 // ! 可以使用这里的方法获取对象中的Symbol属性名
-console.log(Object.getOwnPropertySymbols(info2));
-console.log(Reflect.ownKeys(info2));
+console.log(Object.getOwnPropertySymbols(info2)); // [Symbol(name)]
+console.log(Reflect.ownKeys(info2)); // ['age', 'sex', Symbol(name)]
 
 // ! Symbol两个静态方法：Symbol.for() 、 Symbol.keyFor()
 // Symbol.for它返回的也是一个Symbol值，
@@ -59,6 +58,7 @@ console.log(Symbol.keyFor(s3)); // dylan
 const obj1 = {
   [Symbol.hasInstance] (otherObj) { // 外部对象调用 instanceof 后，会进入这里进行判断，这里返回true，外部的instanceof就会返回true
     console.log(otherObj); // {a: 'a1'}
+
   }
 };
 console.log({ a: 'a1' } instanceof (obj1 as any)); // false：这个对象不是obj1创建的实例
@@ -78,7 +78,7 @@ class C extends Array {
   static get [Symbol.species] () { // 指定一个创建衍生对象的构造函数
     return Array;
   }
-  getName() {
+  public getName() {
     return 'dylan';
   }
 }
@@ -110,6 +110,13 @@ console.log('abcde'.match(obj2)); // haha
 
 // ! 8、Symbol.iterator
 // 数组的这个属性，指向该数组的默认遍历器方法
+const arr11 = [1, 2, 3];
+const iterator = arr11[Symbol.iterator]();
+console.log(iterator); // Array Iterator {}
+console.log(iterator.next()); // {value: 1, done: false}
+console.log(iterator.next()); // {value: 2, done: false}
+console.log(iterator.next()); // {value: 3, done: false}
+console.log(iterator.next()); // {value: undefined, done: true}
 
 // ! 9、Symbol.toPrimitive
 // 当前对象转成原始类型时，会调用这个方法
@@ -137,8 +144,8 @@ const obj6 = {
   b: "b1"
 };
 // @ts-ignore
-with(obj6) {
-  console.log(a);
-  console.log(b);
-}
+// with(obj6) {
+//   console.log(a);
+//   console.log(b);
+// }
 console.log(Array.prototype[Symbol.unscopables]); // 可以看到对象的哪些属性被过滤掉了

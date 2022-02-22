@@ -18,6 +18,7 @@ getFullName({
 interface Vegetable {
   color?: string;
   type: string;
+  // [prop: string]: any; // 索引签名
 }
 const getVegetables = ({ color, type }: Vegetable) => {
   return `A ${color ? (color + ' ') : ''}${type}`;
@@ -41,8 +42,7 @@ interface Vegetable1 {
 let vegetableObj: Vegetable1 = {
   type: 'tomato'
 };
-// @ts-ignore
-vegetableObj.type = 'carrot'; // Error
+// vegetableObj.type = 'carrot'; // Error：无法分配到 "type" ，因为它是只读属性。
 
 // 我们还可以限定一个数组的元素只能读取，不能修改
 interface ArrInter {
@@ -50,8 +50,7 @@ interface ArrInter {
   readonly 1: string;
 }
 let arr5: ArrInter = [1, 'a'];
-// @ts-ignore
-arr5[1] = 'b'; // Error
+// arr5[1] = 'b'; // Error：无法分配到 "1" ，因为它是只读属性。
 
 
 // !定义函数结构
@@ -62,10 +61,9 @@ const add: AddFunc = (n1, n2) => n1 + n2;
 interface RoleDic {
   [id: number]: string;
 }
-const role1: RoleDic = {
-  // @ts-ignore
-  'a': 'super_admin' // Error
-};
+// const role1: RoleDic = {
+//   'a': 'super_admin' // Error：不能将类型“{ a: string; }”分配给类型“RoleDic”。对象文字可以只指定已知属性，并且“'a'”不在类型“RoleDic”中。
+// };
 
 interface RoleDic1 {
   [id: string]: string;
@@ -123,5 +121,5 @@ const getCounter = (): Counter => {
 const counter: Counter = getCounter();
 counter();
 counter();
-console.log(counter.count);
+console.log(counter.count); // 2
 

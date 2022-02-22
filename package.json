@@ -12,9 +12,9 @@
     "type": "git",
     "url": "git+https://github.com/lvhaizhou/ts-study.git"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "keywords": [ "typescript" ],
+  "author": "dylan<xxxx@163.com>",
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/lvhaizhou/ts-study/issues"
   },

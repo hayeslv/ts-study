@@ -1,6 +1,7 @@
 // ! 布尔类型
 let bool: boolean;
 bool = false;
+// bool = 123; // Error：不能将类型“number”分配给类型“boolean”。
 
 // ! 数值类型
 let num: number = 123;
@@ -17,7 +18,7 @@ str = `数值是${num}`;
 let arr1: number[];
 arr1 = [1, 2, 3];
 
-let arr2: number[];
+let arr2: Array<number>;
 arr2 = [1, 2, 3];
 
 let arr3: (string | number)[];
@@ -68,9 +69,13 @@ const errorFunc = (message: string): never => {
 const infiniteFunc = (): never => {
   while(true) {}
 };
+// let neverVariable: never
+let neverVariable = (() => {
+  while(true) {}
+})();
 
 // ! object
-function getObject(obj: Object): void {
+function getObject(obj: object): void {
   console.log(obj);
 }
 getObject({ name: 'dylan' });
