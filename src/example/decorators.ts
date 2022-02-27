@@ -39,7 +39,7 @@ class ClassDec { // 输出：get setName => get setAge => setAge => setName
 let sign = null;
 function setName1(name: string) {
   return (target: new() => any) => {
-    sign = target;
+    // sign = target;
     console.log(target.name);
   };
 }

@@ -81,7 +81,9 @@ type SelectType<T> = {
   [P in keyof T]?: T[P] // 可选属性：[P in keyof T]?: T[P]
 };
 type ReadonlyInfo1 = ReadonlyType<Info1>;
+type ReadonlyInfo2 = Readonly<Info1>;
 type SelectInfo1 = SelectType<Info1>;
+type SelectInfo2 = Partial<Info1>;
 
 // ts内置了这两种方法（把所有属性变成只读的、把所有属性变成可选的）
 type ReadonlyInfo3 = Partial<Info1>;
@@ -107,6 +109,8 @@ function pick<T, K extends keyof T>(obj: T, keys: K[]): Pick<T, K> {
   return res;
 }
 const nameAndAddress = pick(info3, ['name', 'address']);
+console.log('===========');
+console.log(nameAndAddress);
 
 // !Record：将对象中的每一个属性转换为其他值
 function mapObject<K extends string | number, T, U>(obj: Record<K, T>, f: (x: T) => U): Record<K, U> {
@@ -116,7 +120,7 @@ function mapObject<K extends string | number, T, U>(obj: Record<K, T>, f: (x: T)
   }
   return res;
 }
-const names = { 0: 'hello', 1: 'world', 2: 'bye' };
+const names = { 0: 'hello', 1: 'world', 2: 'bye', 'haha': '123' };
 const lengths = mapObject(names, s => s.length);
 console.log(lengths);
 
@@ -178,7 +182,7 @@ let objs3: ReadonlyTypes<Objs2> = {
   1: 11,
   [symbolIndex]: Symbol()
 };
-// objs3.a = 'b'; // Error：无法分配到 "a" ，因为它是只读属性。
+// objs3[1] = 'b'; // Error：无法分配到 "[numberIndex]" ，因为它是只读属性。
 
 // !元组和数组的映射类型：会生成新的元组和数组类型
 type MapToPromise<T> = {
@@ -211,13 +215,14 @@ let value4: unknown;
 type type1 = string & unknown;
 type type2 = number & unknown;
 type type3 = string[] & unknown;
+type type4 = unknown & unknown;
 
 // 5、unknown 与任何类型组成的联合类型（除了any），都等于 unknown 类型
 type type5 = unknown | string;
 type type6 = unknown | any;
 
 // 6、never 类型是 unknown 的子类型
-type type7 = never extends unknown ? true : false; // true
+type type7 = never extends unknown ? true : false; // type type7 = true
 
 // 7、keyof unknown 等于类型 never
 type type8 = keyof unknown;
@@ -228,6 +233,8 @@ type type8 = keyof unknown;
 // value1 += value2; // Error：运算符“+=”不能应用于类型“unknown”和“unknown”。
 
 // 9、unknown 类型的值不能访问它的属性，也不能作为函数调用和作为类创建实例
+let value10: unknown;
+// value10.age; // Error：对象的类型为 "unknown"。
 
 // 10、使用映射类型时，如果遍历的是 unknown 类型，则不会映射任何属性
 type Types1<T> = {
@@ -259,6 +266,7 @@ type Types6 = TypeName1<string[] | (() => void) | string>; // type Types6 = stri
 
 type Diff<T, U> = T extends U ? never : T;
 type Test2 = Diff<string | number | boolean, undefined | number>; // type Test2 = string | boolean
+type Test31 = Exclude<string | number | boolean, undefined | number>; // type Test2 = string | boolean
 
 // 返回是function的类型
 type Types7<T> = {
@@ -267,6 +275,7 @@ type Types7<T> = {
 interface Part {
   id: number;
   name: string;
+  subparts: Part[];
   undatePart(newName: string): void;
 }
 type Test1 = Types7<Part>;
@@ -277,13 +286,13 @@ type Test3 = Type8<string[]>; // 因为是数组，所以返回其对应值的�
 
 // 使用infer
 type Type9<T> = T extends Array<infer U> ? U : T;
-type Test5 = Type9<string[]>; // string
+type Test5 = Type9<string[]>; // type Test5 = string
 
 // !Exclude<T, U>：从前面类型中选出不在后面类型的
 type Type10 = Exclude<'a' | 'b' | 'c', 'a' | 'b'>; // type Type10 = "c"
 
 // !Extract<T, U>：选取T中可以赋值给U的类型
-type Type11 = Extract<'a' | 'b' | 'c', 'c' | 'd'>; // type Type11 = "c"
+type Type11 = Extract<'a' | 'b' | 'c', 'b' | 'c'>; // type Type11 = "b" | "c"
 
 // !NonNullable<T>：从T中去掉 null 和 undefined
 type Type12 = NonNullable<string | number | null | undefined>; // type Type12 = string | number
@@ -295,7 +304,7 @@ type Type13 = ReturnType<() => string>; // type Type13 = string
 class AClass {
   constructor() {}
 }
-type T1 = InstanceType<typeof AClass>;
-type T2 = InstanceType<any>;
+type T1 = InstanceType<typeof AClass>; // type T1 = AClass
+type T2 = InstanceType<any>; // type T2 = any
 // type T3 = InstanceType<string>; // Error：类型“string”不满足约束“abstract new (...args: any) => any”。
 

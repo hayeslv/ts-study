@@ -82,7 +82,7 @@ class FoodIsClass {
 let animal: AnimalClass;
 let people: PeopleClass;
 let food: FoodIsClass;
-animal = people; // OK
+// animal = people; // OK
 // animal = food; // Error：属性“name”的类型不兼容。
 
 // !如果被赋值的类包含私有成员，那么赋值方必须有来自同一个类的私有成员
@@ -108,7 +108,7 @@ const children: ParentClass = new ChildrenClass();
 interface Data<T> {}
 let data1: Data<number>;
 let data2: Data<string>;
-data1 = data2; // OK：因为函数块内部是空的（没有用到）
+// data1 = data2; // OK：因为函数块内部是空的（没有用到）
 
 
 

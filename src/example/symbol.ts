@@ -66,9 +66,9 @@ console.log({ a: 'a1' } instanceof (obj1 as any)); // false：这个对象不是
 // ! 2、Symbol.isConcatSpreadable
 // 它是一个可读写的 bool 值，当一个数组的这个值设为false时，这个数组的concat就不会被扁平化（拆开）
 let arr = [1, 2];
-console.log([].concat(arr, [3, 4])); // [1, 2, 3, 4]
+// console.log([].concat(arr, [3, 4])); // [1, 2, 3, 4]
 arr[Symbol.isConcatSpreadable] = false;
-console.log([].concat(arr, [3, 4])); // [[1, 2], 3, 4]
+// console.log([].concat(arr, [3, 4])); // [[1, 2], 3, 4]
 
 // ! 3、Symbol.species
 class C extends Array {

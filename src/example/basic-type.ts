@@ -50,7 +50,7 @@ const consoleText = (text: string): void => { // 不返回内容
 };
 let v: void;
 v = undefined;
-v = null; // tsconfig的strict需要关掉
+// v = null; // tsconfig的strict需要关掉
 
 // ! null 和 undefined
 let u: undefined;
@@ -58,8 +58,8 @@ u = undefined;
 let n: null;
 n = null;
 // null 和 undefined 是其他类型的子类型
-num = undefined;
-num = null;
+// num = undefined;
+// num = null;
 
 // ! never类型：抛错or死循环，返回值就是 never 类型。
 // never类型是任意类型的子类型，没有任何类型是never的子类型 =》 never可以赋值给任意类型，任意类型都不能赋值给never类型 =》 它可以给别人，但别人不能给它
