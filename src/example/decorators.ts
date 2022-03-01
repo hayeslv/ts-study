@@ -17,67 +17,68 @@
 // @setName
 // @setAge
 
-function setName() {
-  console.log('get setName');
-  return (target) => {
-    console.log('setName');
-  };
-}
-function setAge() {
-  console.log('get setAge');
-  return (target) => {
-    console.log('setAge');
-  };
-}
-@setName()
-@setAge()
-class ClassDec { // 输出：get setName => get setAge => setAge => setName
-  constructor(){}
-}
+// function setName() {
+//   console.log('get setName');
+//   return (target) => {
+//     console.log('setName');
+//   };
+// }
+// function setAge() {
+//   console.log('get setAge');
+//   return (target) => {
+//     console.log('setAge');
+//   };
+// }
+// @setName()
+// @setAge()
+// class ClassDec { // 输出：get setName => get setAge => setAge => setName
+//   constructor(){}
+// }
 
 // !类装饰器：在类声明之前声明
-let sign = null;
-function setName1(name: string) {
-  return (target: new() => any) => {
-    // sign = target;
-    console.log(target.name);
-  };
-}
-@setName1('dylan') // 输出：ClassDec2
-class ClassDec2 {
-  constructor() {}
-}
-console.log(sign === ClassDec2); // true
-console.log(sign === ClassDec2.prototype.constructor); // true
+// let sign: any = null;
+// function setName(name: string) {
+//   return (target: new() => any) => {
+//     sign = target;
+//     console.log(target.name);
+//   };
+// }
+// @setName('dylan') // 输出：ClassDec2
+// class ClassDec {
+//   constructor() {}
+// }
+// console.log(sign === ClassDec); // true
+// console.log(sign === ClassDec.prototype.constructor); // true
+// console.log('============');
 
 // !通过装饰器可以修改类的原型对象和构造函数
-function addName(constructor: new() => any) {
-  constructor.prototype.name = 'dylan';
-}
-@addName
-class ClassD{} // 声明合并
-interface ClassD {
-  name: string;
-}
-const d = new ClassD();
-console.log(d.name);
+// function addName(constructor: new() => any) {
+//   constructor.prototype.name = 'dylan';
+// }
+// @addName
+// class ClassD{} // 声明合并
+// interface ClassD {
+//   name: string;
+// }
+// const d = new ClassD();
+// console.log(d.name);
 
 // !修改类的实现
-function classDecorator<T extends new(...args: any[]) => {}>(target: T) {
-  return class extends target {
-    public newProperty = 'new property';
-    public hello = 'override';
-  };
-}
-@classDecorator
-class Greeter {
-  public property = 'property';
-  public hello: string;
-  constructor(m: string) {
-    this.hello = m;
-  }
-}
-console.log(new Greeter('world'));
+// function classDecorator<T extends new(...args: any[]) => {}>(target: T) {
+//   return class extends target {
+//     public newProperty = 'new property';
+//     public hello = 'override';
+//   };
+// }
+// @classDecorator
+// class Greeter {
+//   public property = 'property';
+//   public hello: string;
+//   constructor(m: string) {
+//     this.hello = m;
+//   }
+// }
+// console.log(new Greeter('world'));
 
 // !js：属性描述符
 // configurable：可配置
@@ -85,22 +86,48 @@ console.log(new Greeter('world'));
 // enumerable：可枚举
 
 // !方法装饰器
-function enumerable(bool: boolean) {
-  // target：类的原型对象；propertyName：方法的名字；descriptor：对象（属性描述符）
-  return (target: any, propertyName: string, descriptor: PropertyDescriptor) => {
-    console.log(target);
-    descriptor.enumerable = bool;
-  };
-}
-class ClassF {
-  constructor(public age: number) {}
-  @enumerable(false)
-  public getAge() {
-    return this.age;
-  }
-}
-const classF = new ClassF(18);
-for(const key in classF) { console.log(key); }
+// function enumerable(bool: boolean) {
+//   // target：类的原型对象；propertyName：方法的名字；descriptor：对象（属性描述符）
+//   return (target: any, propertyName: string, descriptor: PropertyDescriptor) => {
+//     console.log(target);
+//     descriptor.enumerable = bool;
+//   };
+// }
+// class ClassF {
+//   constructor(public age: number) {}
+//   @enumerable(false)
+//   public getAge() {
+//     return this.age;
+//   }
+// }
+// const classF = new ClassF(18);
+// console.log(classF);
+// for(const key in classF) { console.log(key); }
+// console.log('==========');
+
+
+// function enumerable(bool: boolean): any {
+//   // target：类的原型对象/构造函数；propertyName：方法的名字；descriptor：对象（属性描述符）
+//   return (target: any, propertyName: string, descriptor: PropertyDescriptor) => {
+//     return {
+//       value() {
+//         return 'not age';
+//       },
+//       enumerable: bool
+//     };
+//   };
+// }
+// class ClassF {
+//   constructor(public age: number) {}
+//   @enumerable(false)
+//   public getAge() {
+//     return this.age;
+//   }
+// }
+// const classF = new ClassF(18);
+// console.log(classF.getAge()); // not age
+// for(const key in classF) { console.log(key); }
+// console.log('=========');
 
 // !访问器装饰器
 function enumerable1(bool: boolean) {

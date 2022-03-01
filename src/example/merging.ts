@@ -42,15 +42,15 @@ namespace Validations1 {
 console.dir(Validations1); // class方法，里面静态属性有一个 numberReg
 
 // !命名空间和函数合并：函数一定要在前面
-function countUp1() {
-  countUp1.count++;
+function countUp11() {
+  countUp11.count++;
 }
-namespace countUp1 {
+namespace countUp11 {
   export let count = 0;
 }
-console.log(countUp1.count); // 0
-countUp1();
-console.log(countUp1.count); // 1
+console.log(countUp11.count); // 0
+countUp11();
+console.log(countUp11.count); // 1
 
 // !命名空间合枚举的合并
 enum Colors {
