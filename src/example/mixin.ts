@@ -12,7 +12,7 @@ let Bb: ObjectB = {
   b: 'b'
 };
 let Ab = Object.assign(Aa, Bb);
-// console.log(Ab);
+console.log(Ab);
 
 // !类的混入
 class ClassAa {

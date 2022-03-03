@@ -15,9 +15,11 @@
 
 // import './ts-modules/index';
 // import './example/merging';
-import './example/decorators';
+// import './example/decorators';
 // import './example/mixin';
 // import './example/update';
 
 // import './modules/index';
+
+import './modules/index';
 
